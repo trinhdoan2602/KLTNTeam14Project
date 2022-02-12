@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester');
+
+.cursive {
+  font-family: 'Pinyon Script', cursive;
+}
+
+.sans {
+  font-family: 'Open Sans', sans-serif;
+}
+.wrapper {
+  max-width: 800px;
+  padding: 10px;
+  border: 5px solid #3061E2;
+  margin: 10px auto;
+}
+.outer-border {
+  background-color: #fff;
+  border: 2px solid #3061E2;
+  padding: 10px 0px;
+}
+.logo {
+  width: 100px;
+  margin: 0px auto;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+.logo-name {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.full-name {
+  max-width: 400px;
+  border-bottom: 2px solid #ccc;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.image {
+  height: 100px;
+}
+.image img {
+  height: 100%;
+  width: 100%;
+}
+.signature {
+  padding: 0px 50px;
+}
+.show-date {
+ font-size: 11px;
+}

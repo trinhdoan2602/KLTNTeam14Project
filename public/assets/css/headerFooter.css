@@ -1,0 +1,270 @@
+:root {
+    --main-background-color: #212121;
+    --main-background2-color: #000;
+    --main-color: #ffffff;
+    --style-color: #e40084;
+}
+a {
+    text-decoration: none !important;
+}
+/* header */
+header {
+    background-color: var(--main-background-color);
+    width: 100%;
+    height: auto;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+}
+header .container {
+    max-width: 1400px;
+}
+/* navbar */
+.navbar-brand .bx-cart {
+    color: var(--main-color);
+}
+.nav-item {
+    width: auto;
+    height: auto;
+}
+.navbar-nav {
+    width: auto;
+    height: auto;
+}
+.form-inline {
+    width: auto;
+    height: auto;
+}
+button.navbar-toggler {
+    width: auto;
+    height: auto;
+    background-color: rgb(94, 94, 94) !important;
+}
+.btn-outline-success {
+    color: var(--style-color);
+    border-color: var(--style-color);
+}
+.btn-outline-success:hover {
+    background-color: var(--style-color);
+}
+.bg-light {
+    background-color: var(--main-background-color) !important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: var(--main-color);
+    margin: 0 5px;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--style-color);
+}
+.show > .nav-link,
+.active > .nav-link,
+.nav-link.show,
+.nav-link.active {
+    color: var(--style-color) !important;
+}
+.navbar-brand {
+    width: auto;
+    height: auto;
+}
+a.navbar-brand {
+    color: var(--main-color) !important;
+}
+.navbar-brand img {
+    width: 45px;
+    height: auto;
+}
+.navbar-toggler-icon {
+    color: var(--main-color) !important
+}
+.dropdown-menu.show{
+
+    color: #212529;
+    background-color: #333 !important;
+}
+.dropdown-item {
+    background-color: #333;
+    color: white;
+    width: auto;
+    height: auto;
+    border-bottom: 1px solid rgb(185, 185, 185);
+    padding: 8px 12px;
+}
+.dropdown-item:hover {
+    background: linear-gradient(
+    100.37deg,
+    rgb(236, 0, 139) 0%,
+    rgb(241, 90, 34) 100%
+  );
+}
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+.dropdown-divider {
+    background-color: #333;
+}
+.dropdown-menu {
+    margin-top: 0px;
+    background-color: #333;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+@media (min-width: 300px) {
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+        position: absolute;
+    }
+}
+
+
+/* footer */
+footer {
+    background-color: #181818;
+    height: auto;
+    width: auto;
+}
+footer .container {
+    max-width: 1800px;
+}
+footer .khoi {
+    padding-left: 50px;
+    margin: 60px 0;
+}
+footer .khoi h5 {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
+    width: 100%;
+    height: auto;
+    margin: 30px 0;
+}
+footer .khoi a {
+    display: block;
+    color: #7c7c7d;
+    font-weight: 500;
+    font-size: 13px;
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+footer .khoi a:hover {
+    color: var(--main-color);
+}
+footer .footer-bottom {
+    padding: 20px 20px;
+    border-top: 1px solid #333;
+}
+footer .footer-bottom img {
+    margin: -14px 0px;
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+footer .footer-bottom p {
+    font-size: 12px;
+    font-weight: 700;
+    /* margin-top: 14px; */
+    color: #7c7c7d;
+    display: inline;
+}
+footer .footer-bottom-mid a {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 20px 10px;
+    color: var(--main-color);
+    display: inline;
+    height: 100%;
+}
+footer .footer-bottom-right a i {
+    font-size: 18px;
+    margin: 20px 10px;
+    color: var(--main-color);
+    display: inline;
+}
+
+
+
+#paging ul {
+    list-style: none;
+    display: flex;
+    color: var(--main-color);
+  }
+  #paging .paginationjs-page ,
+  #paging .paginationjs-ellipsis,
+  #paging .paginationjs-prev,
+  #paging .paginationjs-next
+  {
+    position: relative;
+    display: inline-block;
+    color: var(--main-color);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 16px 10px;
+    font-weight: 500;
+  }
+  #paging .paginationjs-page a,
+  #paging .paginationjs-ellipsis a,
+  #paging .paginationjs-prev a,
+  #paging .paginationjs-next a{
+   color: var(--main-color); 
+  }
+  #paging .active{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+  }
+  #paging .paginationjs-page:hover ,
+  #paging .paginationjs-ellipsis:hover,
+  #paging .paginationjs-prev:hover,
+  #paging .paginationjs-next:hover{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+  
+  
+
+/* paging_search */
+#paging_search ul {
+    list-style: none;
+    display: flex;
+    color: var(--main-color);
+  }
+  #paging_search .paginationjs-page ,
+  #paging_search .paginationjs-ellipsis,
+  #paging_search .paginationjs-prev,
+  #paging_search .paginationjs-next
+  {
+    position: relative;
+    display: inline-block;
+    color: var(--main-color);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 16px 10px;
+    font-weight: 500;
+  }
+  #paging_search .paginationjs-page a,
+  #paging_search .paginationjs-ellipsis a,
+  #paging_search .paginationjs-prev a,
+  #paging_search .paginationjs-next a{
+   color: var(--main-color); 
+  }
+  #paging_search .active{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+  }
+  #paging_search .paginationjs-page:hover ,
+  #paging_search .paginationjs-ellipsis:hover,
+  #paging_search .paginationjs-prev:hover,
+  #paging_search .paginationjs-next:hover{
+    background-color: var(--style-color);
+    color: white;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+  

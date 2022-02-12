@@ -1,0 +1,145 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --main-background-color: #212121;
+    --main-background2-color: #000;
+    --main-background3-color: rgb(39, 39, 39);
+    --main-background4-color: rgb(241, 90, 34);
+    --main-color: #ffffff;
+    --style-color: #e40084;
+}
+a {
+    text-decoration: none !important;
+}
+
+/* header */
+.seller__wrapper {
+    background-color: #333;
+}
+.header-seller-home{
+    padding-top: 100px;
+}
+.create-your{
+    align-items: center;
+    margin: 48px 0 24px 0;
+    padding:48px;
+    border: 1px solid #d1d7dc;
+    margin: 0 15px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+    display: flex;
+    justify-content: space-between;
+}
+.create-your h1{
+    font-size: 28px;
+    color: tomato;
+}
+
+.create-title {
+    color: var(--main-color);
+    font-size: 20px;
+    font-weight: 500;
+}
+.btn-create-your {
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+    color: var(--main-color);
+    font-weight: 700;
+}
+.btn-create-your:hover{
+    background: linear-gradient( 100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
+    transition: all 0.3s ease;
+}
+.resources-title{
+    color: var(--main-color);
+    text-align: center;
+    margin: 40px auto;
+    font-size:20px;
+}
+
+a.instructor-dashboard--panel {
+    margin: 0 15px;
+    width: auto ;
+    color: var(--main-color);
+    padding: 16px 20px;
+    border: 1px solid #d1d7dc;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+    margin-bottom: 20px;
+}
+a.instructor-dashboard--panel:hover {
+    background: gray;
+}
+a.instructor-dashboard--panel:hover h3, a.instructor-dashboard--panel:hover p {
+    visibility: hidden;
+}
+a.instructor-dashboard--panel:hover h6 {
+    visibility: visible;
+}
+a.instructor-dashboard--panel img {
+    width: 200px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+a.instructor-dashboard--panel h3{
+    color: var(--style-color);
+}
+a .instructor-dashboard--resource-text h6{
+    color:#00FFFF	;
+    visibility: hidden;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -120px;
+    position:absolute;
+    text-align: center;
+}
+.instructor-dashboard-footer{
+    color: var(--main-color);
+    padding: 32px 48px 64px;
+    text-align: center;
+}
+.instructor-dashboard-button{
+    min-width: 20px;
+    position: relative;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    padding: 10px 60px;
+    background: linear-gradient( 100.37deg, rgb(241, 90, 34) 0%, rgb(236, 0, 139) 100%);
+    color: var(--main-color);
+    font-weight: 700;
+    white-space: nowrap;
+    margin-top: 20px;
+}
+.instructor-dashboard-button:hover {
+    color: #000;
+    background: linear-gradient( 100.37deg, rgb(236, 0, 139) 0%, rgb(241, 90, 34) 100%);
+}
+
+/* seller-create */
+.add-course {
+    background-color: var(--main-background3-color);
+}
+.add-course h2 {
+    color: var(--main-color);
+    margin-bottom: 20px;
+}
+form label {
+    color: var(--style-color);
+}
+form button.btn-save {
+    min-width: 20px;
+    margin: 30px 15px;
+    background-color: var(--style-color);
+    border-color: var(--style-color);
+    transition: all 0.3s ease;
+}
+form button.btn-save:hover {
+    background-color: var(--main-background4-color);
+    border-color: var(--main-background4-color);
+}
+
