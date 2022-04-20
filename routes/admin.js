@@ -3,6 +3,7 @@ var router = express.Router();
 
 const tableController = require("../controllers/TableController");
 const adminController = require("../controllers/AdminController");
+const { route } = require("./seller");
 
 // siteController.index
 router.get("/userdisable", adminController.userDisable);
@@ -34,5 +35,6 @@ router.put("/:table/:id", tableController.update);
 router.delete("/:table/:id", tableController.destroy);
 
 router.get("/", adminController.show);
+
 
 module.exports = router;

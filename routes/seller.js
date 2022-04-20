@@ -37,4 +37,6 @@ router.put("/courses/:courseid/questions/:questionid/edit",sellerMiddleware.auth
 
 router.delete("/courses/:courseid/questions/:questionid/",sellerMiddleware.authenSellerCourse,sellerMiddleware.authenSellerQuestion, sellerController.destroyQuestion);
 
+router.get("/get-statistics", sellerController.getStatistics)
+
 module.exports = router;

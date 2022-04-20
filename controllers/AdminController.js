@@ -2,12 +2,14 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const Role = require("../models/Role");
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
-var authMiddleware = require("../middlerwares/auth.middleware")
+var authMiddleware = require("../middlerwares/auth.middleware");
+const Invoice = require("../models/Invoice");
 class AdminController {
     async show(req, res, next) {
         try {
-            var courses = await Course.find({});
-            res.render("admin/dashboard-admin", { ...authMiddleware.userInfor(req) });
+            var invoice = await Invoice.find();
+            const priceReceive = Math.round(invoice.reduce((a, b) => a + b.totalPayout, 0) * 0.1)
+            res.render("admin/dashboard-admin", { ...authMiddleware.userInfor(req), priceReceive });
         } catch (e) {
             console.log(e)
             next(e)
@@ -93,6 +95,7 @@ class AdminController {
         res.clearCookie('accessToken')
         res.redirect('/login')
     }
+
 }
 
 module.exports = new AdminController();

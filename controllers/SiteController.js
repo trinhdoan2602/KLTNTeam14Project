@@ -22,7 +22,7 @@ const Question = require("../models/Question");
 var url = require("url");
 const { monkeyLearnAnalysis } = require("../utilities/monkeyLearn");
 var resultPayment, totalSumCart, userNow;
-const { copy } = require("../app");
+// const { copy } = require("../app");
 const { userInfor } = require("../middlerwares/auth.middleware");
 const axios = require("axios").default;
 var ytDurationFormat = require("youtube-duration-format");
@@ -421,7 +421,7 @@ class SiteController {
         try {
             const searchName = req.query.name;
             let result = await pagination(req, Course, pageSize, "", {
-                name: { $regex: searchName, $options: "i" },
+                name: { $regex: searchName, $options: "i" }, isValidated: 1
             });
 
             res.render("searchPage.ejs", {

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "fakedata": "node database/seed/fakerData.js"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "morgan": "~1.9.1",
     "paypal-rest-sdk": "^1.8.1",
     "stripe": "^8.195.0",
+    "sweetalert2": "^11.4.8",
     "youtube-duration-format": "^0.2.0"
   },
   "devDependencies": {
