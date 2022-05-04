@@ -18,7 +18,7 @@ class SellerController {
         userCoursePrices = [];
       let courses = await Course.find({ user_id: userInfor.id });
       if (userInfor.username == null) {
-        throw { message: "Bạn phải đăng nhập trước", status: 401 };
+        res.redirect('http://localhost:8080/login')
       } else {
         var validatedCourse = await Course.find({
           user_id: userInfor.id,
@@ -459,7 +459,17 @@ class SellerController {
       const myCourseIdList = myCourse.map(c => c._id)
       const courseSold = await Invoice.find({ course_id: myCourseIdList })
       const totalPrice = Math.round(courseSold.reduce((a, b) => a + b.totalPayout, 0) * 0.9)
-      res.send({ totalPrice })
+
+      const today = new Date();
+      const today1 = today.setDate(today.getDate() - 1);
+      const inDay = await Invoice.find({ course_id: myCourseIdList, 'createdAt': { '$gte': today1 } })
+      const priceToday = Math.round(inDay.reduce((a, b) => a + b.totalPayout, 0) * 0.9)
+
+      const lastWeek = today.setDate(today.getDate() - 7);
+      const last7Day = await Invoice.find({ course_id: myCourseIdList, 'createdAt': { '$gte': lastWeek } })
+      const priceIn7Day = Math.round(last7Day.reduce((a, b) => a + b.totalPayout, 0) * 0.9)
+
+      res.send({ totalPrice, priceIn7Day, priceToday, inDay })
     } catch (error) {
       console.log(error);
     }

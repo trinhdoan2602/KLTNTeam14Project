@@ -100,14 +100,19 @@ class SiteController {
     // [GET] /courses
     async courses(req, res, next) {
         try {
+            const { id } = authMiddleware.userInfor(req);
             const pageSize = 8;
             let result = await pagination(req, Course, pageSize, "", {
                 isValidated: 1,
             }).then((res) => res);
+            const notMyProduct = result.docs.filter(r => {
+                return r.user_id != id
+            })
+            console.log(notMyProduct);
             // const validatedCourse = result.docs.filter((item) => item.isValidated === 1);
             res.render("courses-view.ejs", {
                 ...authMiddleware.userInfor(req),
-                courses: result.docs, // sản phẩm trên một paga
+                courses: notMyProduct, // sản phẩm trên một paga
                 current: result.page, // page hiện tại
                 pages: result.pages, // tổng số các page
             });
@@ -120,8 +125,9 @@ class SiteController {
         try {
             let pageSize = 4;
             let userInfor = authMiddleware.userInfor(req);
-            if (userInfor.username == null)
-                throw { message: "Bạn phải đăng nhập trước", status: 401 };
+            if (userInfor.username == null) {
+                res.redirect('http://localhost:8080/login')
+            }
             let userCourses = await UserCourse.find({ user_id: userInfor.id })
                 .populate("course_id")
                 .exec()
@@ -501,10 +507,12 @@ class SiteController {
         const userInfor = authMiddleware.userInfor(req);
         const getEmail = await User.findOne({ _id: userInfor.id });
         try {
-            if (userInfor.id == null) throw { message: "Bạn phải đăng nhập trước", status: 401 }
+            if (userInfor.id == null) {
+                res.redirect('http://localhost:8080/login')
+            }
             var infoCheckout =
                 userInfor.username == null
-                    ? null
+                    ? res.redirect('http://localhost:8080/login')
                     : await UserCart.find({ user_id: userInfor.id })
                         .populate("course_id")
                         .exec()
@@ -514,10 +522,13 @@ class SiteController {
                             userCart.forEach(
                                 (item) => (sum += parseFloat(item.course_id.price))
                             );
+                            sum == 0 && res.redirect('http://localhost:8080/courses')
                             return { sum, courses };
                         })
                         .catch((e) => console.log(e));
-            if (getEmail.email == '') throw { message: "Bạn phải cập nhật thông tin trong profile trước", status: 403 };
+            if (getEmail.email == '' && userInfor.id != null) {
+                res.redirect('http://localhost:8080/user')
+            }
             if (infoCheckout != null) {
                 if (infoCheckout.sum != 0)
                     return res.render("checkout", {
@@ -527,7 +538,7 @@ class SiteController {
                         title: "Check Out",
                         ...authMiddleware.userInfor(req),
                     })
-                else throw { message: "Bạn chưa có khoá học nào trong giỏ hàng!", status: 404 };
+                else res.redirect('http://localhost:8080/courses')
 
             }
             throw { message: "Bạn phải đăng nhập trước", status: 401 };
