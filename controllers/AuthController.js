@@ -7,7 +7,7 @@ const UserCart = require('../models/UserCart');
 const UserCourse = require('../models/UserCourse');
 const { resolveInclude } = require('ejs');
 var authMiddleware = require("../middlerwares/auth.middleware");
-
+const nodemailer = require('nodemailer');
 class UserController {
     // [POST] /users/password
     async password(req, res) {
@@ -95,41 +95,76 @@ class UserController {
     }
 
     async register(req, res) {
-        // console.log(req.body);
-        const { username, password: plainTextPassword } = req.body;
+        const { username, password: plainTextPassword, email } = req.body;
 
-        if (!username || typeof username !== "string") {
-            return res.json({ status: "error", error: "Invalid username" });
-        }
-
-        if (!plainTextPassword || typeof plainTextPassword !== "string") {
-            return res.json({ status: "error", error: "Invalid password" });
-        }
-
-        if (plainTextPassword.length < 5) {
-            return res.json({
-                status: "error",
-                error: "Password to small. Should be atleast 6 characters",
-            });
-        }
-
-        const password = await bcrypt.hash(plainTextPassword, 10);
-
-        try {
-            const response = await User.create({
-                username,
-                password,
-            });
-            console.log("User created successfully: ", response);
-        } catch (error) {
-            console.log(JSON.stringify(error));
-            if (error.code === 11000) {
-                return res.json({ status: "error", error: "Username already in use" });
+        const isHaveUsername = await User.find({ username })
+        const isHaveEmail = await User.find({ email })
+        if (isHaveUsername.length === 0 && isHaveEmail.length === 0) {
+            if (!username || typeof username !== "string") {
+                return res.json({ status: "error", error: "Invalid username" });
             }
-            throw error;
+
+            if (!plainTextPassword || typeof plainTextPassword !== "string") {
+                return res.json({ status: "error", error: "Invalid password" });
+            }
+
+            if (plainTextPassword.length < 5) {
+                return res.json({
+                    status: "error",
+                    error: "Password to small. Should be atleast 6 characters",
+                });
+            }
+
+            const password = await bcrypt.hash(plainTextPassword, 10);
+
+            try {
+                const response = await User.create({
+                    username,
+                    password,
+                    email
+                });
+                console.log("User created successfully: ", response);
+            } catch (error) {
+                console.log(JSON.stringify(error));
+                if (error.code === 11000) {
+                    return res.json({ status: "error", error: "Username already in use" });
+                }
+                throw error;
+            }
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'codeeverydaytest',
+                    pass: 'nguyen123456'
+                }
+            });
+            const mailOptions = {
+                from: 'codeeverydaytest@gmail.com',
+                to: email,
+                subject: 'Get started with CodeEveryDay',
+                text: `
+Hello ${username}.
+Thanks for using CodeEveryDay. 
+Wish you have a great time. 
+Best regards.
+CodeEveryDay.`
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log('error', error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+            res.json({ status: "ok" });
+        }
+        if (isHaveUsername.length !== 0) {
+            return res.json({ status: "error", error: "Username already in use" });
+        }
+        if (isHaveEmail.length !== 0) {
+            return res.json({ status: "error", error: "Email already in use" });
         }
 
-        res.json({ status: "ok" });
     }
 
     async changePassWord(req, res, next) {
@@ -160,7 +195,7 @@ class UserController {
             console.log(e)
         }
     }
-    
+
     async signout(req, res, next) {
         // Clear cookie 
         res.clearCookie('accessToken')

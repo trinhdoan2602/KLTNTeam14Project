@@ -1,6 +1,7 @@
 require("dotenv").config();
 const Course = require("../models/Course");
 const Lesson = require("../models/Lesson");
+const nodemailer = require('nodemailer');
 const { mutipleMongooseToObject } = require("../utilities/mongoose");
 const jwt = require("jsonwebtoken");
 var authMiddleware = require("../middlerwares/auth.middleware");
@@ -504,6 +505,7 @@ class SiteController {
         }
     }
     async checkout(req, res, next) {
+
         const userInfor = authMiddleware.userInfor(req);
         const getEmail = await User.findOne({ _id: userInfor.id });
         try {
@@ -553,6 +555,41 @@ class SiteController {
     async payment(req, res, next) {
         const userInfor = authMiddleware.userInfor(req);
         const { email, number, exp_month, exp_year, cvc } = req.body;
+        const courseInCart1 = await UserCart.find({ user_id: userInfor.id })
+        const const1 = courseInCart1.map((c) => c.course_id)
+        const course2 = await Course.find({ _id: const1 })
+        const courseName = course2.map((c) => {
+            return c.name
+        })
+
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'codeeverydaytest',
+                pass: 'nguyen123456'
+            }
+        });
+        const mailOptions = {
+            from: 'codeeverydaytest@gmail.com',
+            to: email,
+            subject: courseName.length > 0 ? `Congratulation!!! You bought successfully ${courseName.length} courses` : 'Congratulation!!! You bought successfully a course',
+            text: `
+Hello.
+Thanks for using CodeEveryDay.
+You bought ${courseName.join(', ')}.
+Hope you will finish this course. The test will be available at the end of the course.
+Try your best.
+Wish you have a great time. 
+Best regards.
+CodeEveryDay.`
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log('error', error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
         var sumPrice =
             userInfor.username == null
                 ? null
@@ -568,6 +605,7 @@ class SiteController {
                     })
                     .catch((e) => console.log(e));
         try {
+
             // Create token check valid card
             const token = await stripe.tokens.create({
                 card: {
@@ -600,11 +638,13 @@ class SiteController {
                 price: sumPrice,
                 status: "approved",
             });
+
             // Add course in Mylearning and invoices
             const courseInCart = await UserCart.find({ user_id: userInfor.id })
                 .populate("course_id")
                 .exec();
-            console.log(courseInCart);
+
+
             courseInCart.forEach(async (course) => {
                 var usercourses = new UserCourse({
                     user_id: userInfor.id,
@@ -618,16 +658,21 @@ class SiteController {
                 await usercourses.save();
                 await invoices.save();
             });
+
             await transactions.save();
             // Delete course out of userCart
             await UserCart.deleteMany({ user_id: userInfor.id })
                 .then(function () {
+
+
                     console.log("Data deleted"); // Success
                 })
                 .catch(function (error) {
                     console.log(error); // Failure
                 });
+
             res.redirect("/result");
+
         } catch (err) {
             resultPayment = err.raw.message;
             res.redirect("/error");
@@ -636,6 +681,7 @@ class SiteController {
 
     // [Post] /cart/paymentPaypal
     async paymentPaypal(req, res, next) {
+        console.log('vao1');
         const userInfor = authMiddleware.userInfor(req);
         userNow = userInfor;
         var sumPrice =
@@ -698,6 +744,7 @@ class SiteController {
                 } else {
                     for (let i = 0; i < payment.links.length; i++) {
                         if (payment.links[i].rel == "approval_url") {
+
                             res.redirect(payment.links[i].href);
                         }
                     }
