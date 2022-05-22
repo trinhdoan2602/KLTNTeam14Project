@@ -30,9 +30,9 @@ var ytDurationFormat = require("youtube-duration-format");
 paypal.configure({
     mode: "sandbox", //sandbox or live
     client_id:
-        "Af28FeslwhxWrQgkN15xEqGK6kUviwhpg1uc7SvOpQSHL1SWywAqBdpSDpQlPFSlkeyb6M2aolPeJjo-",
+        "AVqkPh4-mTUGQI0K4Ob9RWqvlblwi1DYWG7A4qbL4Q2LKDxyveJ_wSa1j55HiB6Kjyu91FMNMG1Qlrv-",
     client_secret:
-        "EP3Xp3p9mUMiyDeXRsv-lL4eKEzpG5lnHBJZwHWeyHOZur-FBycdsG387jVOGNGEK7ZquOWvr4AhHgtB",
+        "ELT8xwojISRZX7dWmEw55dtYn3oOxQ1eJk4bGj3h9Ah42q87EBp2sfuVql53JiaEIA54SNujWL5Q7M9F",
 });
 
 const pagination = async (
